@@ -1,29 +1,42 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
+    e.preventDefault();
 
-  const response = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-  const data = await response.json();
+      const data = await response.json();
 
-  alert(data.message);
-}
+      if (data.success) {
+        router.push("/admin");
+        return;
+      }
+
+      alert(data.message);
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  }
 
   return (
     <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900 p-8 shadow-xl">
