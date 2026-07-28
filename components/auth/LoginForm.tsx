@@ -6,14 +6,24 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
 
-    console.log({
+  const response = await fetch("/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       email,
       password,
-    });
-  }
+    }),
+  });
+
+  const data = await response.json();
+
+  alert(data.message);
+}
 
   return (
     <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900 p-8 shadow-xl">
