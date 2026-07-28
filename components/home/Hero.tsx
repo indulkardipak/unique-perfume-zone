@@ -1,5 +1,5 @@
 import Button from "../ui/Button";
-import { heroContent } from "@/lib/Hero";
+import { heroContent } from "@/lib/hero";
 import Image from "next/image";
 import HeroStats from "./HeroStats";
 
