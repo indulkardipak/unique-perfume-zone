@@ -1,0 +1,47 @@
+import { Product } from "@/types/product";
+
+export const featuredProducts: Product[] = [
+  {
+    id: 1,
+    name: "Oud Royale",
+    brand: "Unique Perfume Zone",
+    price: 1499,
+    originalPrice: 1999,
+    image: "/images/products/perfume1.png",
+    rating: 4.9,
+    reviews: 248,
+    badge: "Best Seller",
+  },
+  {
+    id: 2,
+    name: "Midnight Musk",
+    brand: "Ajmal",
+    price: 1899,
+    originalPrice: 2499,
+    image: "/images/products/perfume2.png",
+    rating: 4.8,
+    reviews: 182,
+    badge: "New",
+  },
+  {
+    id: 3,
+    name: "Ocean Breeze",
+    brand: "Armaf",
+    price: 2199,
+    originalPrice: 2799,
+    image: "/images/products/perfume3.png",
+    rating: 4.7,
+    reviews: 143,
+  },
+  {
+    id: 4,
+    name: "Royal Amber",
+    brand: "Lattafa",
+    price: 1699,
+    originalPrice: 2299,
+    image: "/images/products/perfume4.png",
+    rating: 4.9,
+    reviews: 321,
+    badge: "Hot",
+  },
+];
