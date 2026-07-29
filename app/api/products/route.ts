@@ -2,6 +2,34 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Product from "@/models/Product";
 
+export async function POST(req: Request) {
+  try {
+    await connectDB();
+
+    const body = await req.json();
+
+    const product = await Product.create(body);
+
+    return NextResponse.json(
+      {
+        success: true,
+        product,
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("POST Error:", error);
+
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to create product",
+      },
+      { status: 500 }
+    );
+  }
+}
+
 export async function GET() {
   try {
     await connectDB();
@@ -12,29 +40,13 @@ export async function GET() {
 
     return NextResponse.json(products);
   } catch (error) {
-    console.error(error);
+    console.error("GET Error:", error);
 
     return NextResponse.json(
-      { message: "Failed to fetch products" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(request: Request) {
-  try {
-    await connectDB();
-
-    const body = await request.json();
-
-    const product = await Product.create(body);
-
-    return NextResponse.json(product, { status: 201 });
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { message: "Failed to create product" },
+      {
+        success: false,
+        message: "Failed to fetch products",
+      },
       { status: 500 }
     );
   }

@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const ProductSchema = new Schema(
   {
@@ -31,9 +31,9 @@ const ProductSchema = new Schema(
       default: "Unisex",
     },
 
-    price: {
-      type: Number,
-      required: true,
+    size: {
+      type: String,
+      default: "100ml",
     },
 
     mrp: {
@@ -41,9 +41,19 @@ const ProductSchema = new Schema(
       required: true,
     },
 
+    price: {
+      type: Number,
+      required: true,
+    },
+
     stock: {
       type: Number,
       default: 0,
+    },
+
+    description: {
+      type: String,
+      default: "",
     },
 
     image: {

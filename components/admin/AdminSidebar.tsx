@@ -3,7 +3,7 @@ import Link from "next/link";
 const menuItems = [
   { name: "Dashboard", href: "/admin" },
   { name: "Products", href: "/admin/products" },
-  { name: "Add Product", href: "/admin/products/new" },
+  { name: "Add Product", href: "/admin/products/add" },
   { name: "Orders", href: "/admin/orders" },
   { name: "Customers", href: "/admin/customers" },
   { name: "Categories", href: "/admin/categories" },
@@ -27,6 +27,7 @@ export default function AdminSidebar() {
           </Link>
         ))}
       </nav>
+
     </aside>
   );
 }
