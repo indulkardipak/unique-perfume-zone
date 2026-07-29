@@ -1,4 +1,4 @@
-import Button from "../ui/Button";
+import Link from "next/link";
 import { heroContent } from "@/lib/hero";
 import Image from "next/image";
 import HeroStats from "./HeroStats";
@@ -27,13 +27,19 @@ export default function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button>
-              {heroContent.primaryButton}
-            </Button>
+            <Link
+              href="/products"
+              className="inline-flex items-center justify-center rounded-full bg-yellow-500 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-400"
+            >
+              Shop Now
+            </Link>
 
-            <Button variant="outline">
-              {heroContent.secondaryButton}
-            </Button>
+            <Link
+              href="/brands"
+              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Explore Collection
+            </Link>
 
             <HeroStats />
           </div>
@@ -49,13 +55,13 @@ export default function Hero() {
   <div className="relative rounded-[40px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
 
     <Image
-      src="/images/hero-perfume.png"
-      alt="Luxury Perfume"
-      width={380}
-      height={500}
-      priority
-      className="object-contain drop-shadow-[0_25px_60px_rgba(255,215,0,0.35)]"
-    />
+  src="/images/hero-perfume.png"
+  alt="Luxury Perfume"
+  width={380}
+  height={500}
+  priority
+  className="animate-[float_5s_ease-in-out_infinite] object-contain drop-shadow-[0_25px_60px_rgba(255,215,0,0.35)]"
+/>
 
   </div>
 
