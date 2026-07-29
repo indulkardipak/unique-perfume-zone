@@ -1,54 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import { Search, ShoppingBag, User } from "lucide-react";
+import { Menu, Search, Heart, ShoppingCart, User } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+    <header className="sticky top-0 z-50 border-b border-zinc-800 bg-black/80 backdrop-blur">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
 
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold tracking-wide">
-          <span className="text-white">Unique</span>{" "}
-          <span className="text-yellow-400">Perfume Zone</span>
+        <Link href="/" className="text-2xl font-bold tracking-wide text-yellow-500">
+          UNIQUE PERFUME ZONE
         </Link>
 
-        {/* Menu */}
-        <nav className="hidden gap-8 md:flex">
-          <Link href="/" className="text-gray-300 hover:text-yellow-400 transition">
+        {/* Desktop Menu */}
+        <nav className="hidden items-center gap-8 md:flex">
+          <Link href="/" className="text-white hover:text-yellow-500">
             Home
           </Link>
 
-          <Link href="/shop" className="text-gray-300 hover:text-yellow-400 transition">
-            Shop
+          <Link href="/products" className="text-white hover:text-yellow-500">
+            Products
           </Link>
 
-          <Link href="/brands" className="text-gray-300 hover:text-yellow-400 transition">
+          <Link href="/brands" className="text-white hover:text-yellow-500">
             Brands
           </Link>
 
-          <Link href="/contact" className="text-gray-300 hover:text-yellow-400 transition">
+          <Link href="/offers" className="text-white hover:text-yellow-500">
+            Offers
+          </Link>
+
+          <Link href="/contact" className="text-white hover:text-yellow-500">
             Contact
           </Link>
         </nav>
 
-        {/* Right Side */}
+        {/* Right Icons */}
         <div className="flex items-center gap-5">
-          <Search
-            size={20}
-            className="cursor-pointer text-gray-300 hover:text-yellow-400"
-          />
+          <Search className="h-5 w-5 cursor-pointer text-white hover:text-yellow-500" />
+          <Heart className="h-5 w-5 cursor-pointer text-white hover:text-yellow-500" />
+          <ShoppingCart className="h-5 w-5 cursor-pointer text-white hover:text-yellow-500" />
+          <User className="h-5 w-5 cursor-pointer text-white hover:text-yellow-500" />
 
-          <ShoppingBag
-            size={20}
-            className="cursor-pointer text-gray-300 hover:text-yellow-400"
-          />
-
-          <User
-            size={20}
-            className="cursor-pointer text-gray-300 hover:text-yellow-400"
-          />
+          <button className="md:hidden">
+            <Menu className="h-6 w-6 text-white" />
+          </button>
         </div>
 
       </div>

@@ -18,6 +18,9 @@ export default function ProductsTable() {
     const [loading, setLoading] = useState(true);
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const [search, setSearch] = useState("");
+    const [brandFilter, setBrandFilter] = useState("All");
+    const [categoryFilter, setCategoryFilter] = useState("All");
 
     useEffect(() => {
         fetchProducts();
@@ -70,8 +73,73 @@ export default function ProductsTable() {
         }
     }
 
+    const brands = [
+        "All",
+        ...new Set(products.map((p) => p.brand)),
+    ];
+
+    const categories = [
+        "All",
+        ...new Set(products.map((p) => p.category)),
+    ];
+
+    const filteredProducts = products.filter((product) => {
+        const value = search.toLowerCase();
+
+        const matchesSearch =
+            product.name.toLowerCase().includes(value) ||
+            product.brand.toLowerCase().includes(value) ||
+            product.category.toLowerCase().includes(value);
+
+        const matchesBrand =
+            brandFilter === "All" ||
+            product.brand === brandFilter;
+
+        const matchesCategory =
+            categoryFilter === "All" ||
+            product.category === categoryFilter;
+
+        return (
+            matchesSearch &&
+            matchesBrand &&
+            matchesCategory
+        );
+    });
+
     return (
         <div className="overflow-x-auto rounded-xl border border-zinc-800">
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="🔍 Search by product, brand or category..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-white outline-none focus:border-yellow-500"
+                />
+            </div>
+
+            <div className="mb-4 flex gap-4">
+                <select
+                    value={brandFilter}
+                    onChange={(e) => setBrandFilter(e.target.value)}
+                    className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-white"
+                >
+                    {brands.map((brand) => (
+                        <option key={brand}>{brand}</option>
+                    ))}
+                </select>
+
+                <select
+                    value={categoryFilter}
+                    onChange={(e) => setCategoryFilter(e.target.value)}
+                    className="rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-white"
+                >
+                    {categories.map((category) => (
+                        <option key={category}>{category}</option>
+                    ))}
+                </select>
+            </div>
+
             <table className="min-w-full text-left">
                 <thead className="bg-zinc-900">
                     <tr>
@@ -87,7 +155,7 @@ export default function ProductsTable() {
                 </thead>
 
                 <tbody>
-                    {products.map((product) => (
+                    {filteredProducts.map((product) => (
                         <tr
                             key={product._id}
                             className="border-t border-zinc-800"
