@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
+import DeleteProductModal from "./DeleteProductModal";
 type Product = {
     _id: string;
     name: string;
@@ -16,6 +16,8 @@ type Product = {
 export default function ProductsTable() {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
+    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     useEffect(() => {
         fetchProducts();
@@ -42,13 +44,13 @@ export default function ProductsTable() {
         );
     }
 
-    async function deleteProduct(id: string) {
-        const ok = confirm("Are you sure you want to delete this product?");
-
-        if (!ok) return;
+    async function deleteProduct() {
+        if (!selectedProduct) return;
 
         try {
-            const res = await fetch(`/api/products/${id}`, {
+            setDeleteLoading(true);
+
+            const res = await fetch(`/api/products/${selectedProduct._id}`, {
                 method: "DELETE",
             });
 
@@ -58,12 +60,13 @@ export default function ProductsTable() {
                 throw new Error(data.message);
             }
 
-            alert("Product deleted successfully");
-
+            setSelectedProduct(null);
             fetchProducts();
         } catch (error) {
             console.error(error);
             alert("Delete failed");
+        } finally {
+            setDeleteLoading(false);
         }
     }
 
@@ -114,8 +117,17 @@ export default function ProductsTable() {
                                     Edit
                                 </Link>
 
+                                {/* <button
+                                    onClick={() => setSelectedProduct(product)}
+                                    className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-500"
+                                >
+                                    Delete
+                                </button> */}
                                 <button
-                                    onClick={() => deleteProduct(product._id)}
+                                    onClick={() => {
+                                        console.log("Delete clicked");
+                                        setSelectedProduct(product);
+                                    }}
                                     className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-500"
                                 >
                                     Delete
@@ -125,6 +137,14 @@ export default function ProductsTable() {
                     ))}
                 </tbody>
             </table>
+
+            <DeleteProductModal
+                open={!!selectedProduct}
+                productName={selectedProduct?.name ?? ""}
+                loading={deleteLoading}
+                onClose={() => setSelectedProduct(null)}
+                onConfirm={deleteProduct}
+            />
         </div>
     );
 }
