@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Product = {
     _id: string;
@@ -41,37 +42,37 @@ export default function ProductsTable() {
         );
     }
 
-async function deleteProduct(id: string) {
-  const ok = confirm("Are you sure you want to delete this product?");
+    async function deleteProduct(id: string) {
+        const ok = confirm("Are you sure you want to delete this product?");
 
-  if (!ok) return;
+        if (!ok) return;
 
-  try {
-    const res = await fetch(`/api/products/${id}`, {
-      method: "DELETE",
-    });
+        try {
+            const res = await fetch(`/api/products/${id}`, {
+                method: "DELETE",
+            });
 
-    const data = await res.json();
+            const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data.message);
+            if (!res.ok) {
+                throw new Error(data.message);
+            }
+
+            alert("Product deleted successfully");
+
+            fetchProducts();
+        } catch (error) {
+            console.error(error);
+            alert("Delete failed");
+        }
     }
-
-    alert("Product deleted successfully");
-
-    fetchProducts();
-  } catch (error) {
-    console.error(error);
-    alert("Delete failed");
-  }
-}
 
     return (
         <div className="overflow-x-auto rounded-xl border border-zinc-800">
             <table className="min-w-full text-left">
                 <thead className="bg-zinc-900">
                     <tr>
-                        
+
                         <th className="p-4">Image</th>
                         <th className="p-4">Name</th>
                         <th className="p-4">Brand</th>
@@ -106,16 +107,19 @@ async function deleteProduct(id: string) {
 
                             <td className="p-4">{product.stock}</td>
                             <td className="p-4 flex gap-3">
-                                <button className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-500">
+                                <Link
+                                    href={`/admin/products/edit/${product._id}`}
+                                    className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-500"
+                                >
                                     Edit
-                                </button>
+                                </Link>
 
                                 <button
-  onClick={() => deleteProduct(product._id)}
-  className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-500"
->
-  Delete
-</button>
+                                    onClick={() => deleteProduct(product._id)}
+                                    className="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-500"
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}

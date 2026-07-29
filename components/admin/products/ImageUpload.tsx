@@ -1,15 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 type Props = {
   onUpload: (url: string) => void;
+  value?: string;
 };
 
-export default function ImageUpload({ onUpload }: Props) {
+export default function ImageUpload({
+  onUpload,
+  value,
+}: Props) {
   const [preview, setPreview] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (value) {
+      setPreview(value);
+    }
+  }, [value]);
 
   async function handleFileChange(
     e: React.ChangeEvent<HTMLInputElement>
@@ -34,16 +44,17 @@ export default function ImageUpload({ onUpload }: Props) {
       const data = await res.json();
 
       if (data.url) {
+        setPreview(data.url);
         onUpload(data.url);
       } else {
         alert("Upload failed");
       }
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
       alert("Upload failed");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
