@@ -8,7 +8,9 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    const product = await Product.create(body);
+console.log("Product Body:", body);
+
+const product = await Product.create(body);
 
     return NextResponse.json(
       {

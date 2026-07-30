@@ -25,9 +25,10 @@ export default function ProductForm({
   const [stock, setStock] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
+  const [featured, setFeatured] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {
     if (mode === "edit" && productId) {
@@ -53,6 +54,8 @@ export default function ProductForm({
       setStock(product.stock?.toString() || "");
       setDescription(product.description || "");
       setImage(product.image || "");
+      setFeatured(product.featured ?? false);
+      setIsActive(product.isActive ?? true);
     } catch (err) {
       console.log(err);
       alert("Failed to load product");
@@ -112,6 +115,8 @@ export default function ProductForm({
           stock: Number(stock),
           description,
           image,
+          featured,
+          isActive,
         }),
       });
 
@@ -151,164 +156,177 @@ export default function ProductForm({
       className="space-y-6"
     >
       <div className="grid gap-6 md:grid-cols-2">
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Product Name
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Product Name
+          </label>
 
-    <input
-      type="text"
-      value={productName}
-      onChange={(e) => setProductName(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
-      placeholder="Ajmal Kuro"
-    />
-  </div>
+          <input
+            type="text"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
+            placeholder="Ajmal Kuro"
+          />
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Brand
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Brand
+          </label>
 
-    <input
-      type="text"
-      value={brand}
-      onChange={(e) => setBrand(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
-      placeholder="Ajmal"
-    />
-  </div>
+          <input
+            type="text"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
+            placeholder="Ajmal"
+          />
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Category
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Category
+          </label>
 
-    <select
-      value={category}
-      onChange={(e) => setCategory(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white"
-    >
-      <option value="">Select Category</option>
-      <option>Perfume</option>
-      <option>Attar</option>
-      <option>Body Spray</option>
-      <option>Gift Set</option>
-    </select>
-  </div>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white"
+          >
+            <option value="">Select Category</option>
+            <option>Perfume</option>
+            <option>Attar</option>
+            <option>Body Spray</option>
+            <option>Gift Set</option>
+          </select>
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Gender
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Gender
+          </label>
 
-    <select
-      value={gender}
-      onChange={(e) => setGender(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white"
-    >
-      <option>Men</option>
-      <option>Women</option>
-      <option>Unisex</option>
-    </select>
-  </div>
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white"
+          >
+            <option>Men</option>
+            <option>Women</option>
+            <option>Unisex</option>
+          </select>
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Size
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Size
+          </label>
 
-    <select
-      value={size}
-      onChange={(e) => setSize(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white"
-    >
-      <option>30ml</option>
-      <option>50ml</option>
-      <option>100ml</option>
-    </select>
-  </div>
+          <select
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white"
+          >
+            <option>30ml</option>
+            <option>50ml</option>
+            <option>100ml</option>
+          </select>
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Stock
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Stock
+          </label>
 
-    <input
-      type="number"
-      value={stock}
-      onChange={(e) => setStock(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
-    />
-  </div>
+          <input
+            type="number"
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
+          />
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      MRP (₹)
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            MRP (₹)
+          </label>
 
-    <input
-      type="number"
-      value={price}
-      onChange={(e) => setPrice(e.target.value)}
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
-    />
-  </div>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
+          />
+        </div>
 
-  <div>
-    <label className="mb-2 block text-sm text-zinc-300">
-      Selling Price (₹)
-    </label>
+        <div>
+          <label className="mb-2 block text-sm text-zinc-300">
+            Selling Price (₹)
+          </label>
 
-    <input
-      type="number"
-      value={discountPrice}
-      onChange={(e) =>
-        setDiscountPrice(e.target.value)
-      }
-      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
-    />
-  </div>
-</div>
+          <input
+            type="number"
+            value={discountPrice}
+            onChange={(e) =>
+              setDiscountPrice(e.target.value)
+            }
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
+          />
+        </div>
+      </div>
 
-<ImageUpload
-  value={image}
-  onUpload={(url) => setImage(url)}
-/>
+      <ImageUpload
+        value={image}
+        onUpload={(url) => setImage(url)}
+      />
 
-<div>
-  <label className="mb-2 block text-sm text-zinc-300">
-    Description
-  </label>
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={featured}
+            onChange={(e) => setFeatured(e.target.checked)}
+            className="h-5 w-5"
+          />
 
-  <textarea
-    rows={5}
-    value={description}
-    onChange={(e) =>
-      setDescription(e.target.value)
-    }
-    className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
-  />
-</div>
+          <span className="text-white font-medium">
+            Featured Product
+          </span>
+        </label>
+      </div>
 
-<p className="break-all text-green-400">
-  {image}
-</p>
+      <div>
+        <label className="mb-2 block text-sm text-zinc-300">
+          Description
+        </label>
 
-<button
-  type="submit"
-  disabled={loading}
-  className="rounded-lg bg-yellow-500 px-8 py-3 font-semibold text-black hover:bg-yellow-400 disabled:opacity-50"
->
-  {loading
-    ? mode === "add"
-      ? "Saving..."
-      : "Updating..."
-    : mode === "add"
-    ? "Save Product"
-    : "Update Product"}
-</button>
-      
+        <textarea
+          rows={5}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-white outline-none focus:border-yellow-500"
+        />
+      </div>
+
+      <p className="break-all text-green-400">
+        {image}
+      </p>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="rounded-lg bg-yellow-500 px-8 py-3 font-semibold text-black hover:bg-yellow-400 disabled:opacity-50"
+      >
+        {loading
+          ? mode === "add"
+            ? "Saving..."
+            : "Updating..."
+          : mode === "add"
+            ? "Save Product"
+            : "Update Product"}
+      </button>
+
     </form>
   );
 }

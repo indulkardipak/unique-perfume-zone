@@ -46,26 +46,26 @@ export default function Hero() {
         </div>
 
         {/* Right Section */}
-<div className="relative flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
 
-  {/* Gold Glow */}
-  <div className="absolute h-72 w-72 rounded-full bg-yellow-500/20 blur-3xl"></div>
+          {/* Gold Glow */}
+          <div className="absolute h-72 w-72 rounded-full bg-yellow-500/20 blur-3xl"></div>
 
-  {/* Glass Card */}
-  <div className="relative rounded-[40px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
+          {/* Glass Card */}
+          <div className="relative rounded-[40px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
 
-    <Image
-  src="/images/hero-perfume.png"
-  alt="Luxury Perfume"
-  width={380}
-  height={500}
-  priority
-  className="animate-[float_5s_ease-in-out_infinite] object-contain drop-shadow-[0_25px_60px_rgba(255,215,0,0.35)]"
-/>
+            <Image
+              src="/images/hero-perfume.png"
+              alt="Luxury Perfume"
+              width={380}
+              height={500}
+              priority
+              className="animate-[float_5s_ease-in-out_infinite] object-contain drop-shadow-[0_25px_60px_rgba(255,215,0,0.35)]"
+            />
 
-  </div>
+          </div>
 
-</div>
+        </div>
 
       </div>
     </section>

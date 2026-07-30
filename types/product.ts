@@ -1,11 +1,26 @@
 export interface Product {
-  id: number;
+  _id: string;
+  slug: string;
+
   name: string;
   brand: string;
-  price: number;
-  originalPrice: number;
+  category: string;
+
   image: string;
+
+  mrp: number;
+  price: number;
+
+  stock: number;
+
   rating: number;
-  reviews: number;
-  badge?: string;
+
+  featured: boolean;
+  bestSeller?: boolean;
+  newArrival?: boolean;
+
+  description?: string;
+
+  gender?: "Men" | "Women" | "Unisex";
+  size?: string;
 }
