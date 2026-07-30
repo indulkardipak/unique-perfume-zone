@@ -23,4 +23,18 @@ export interface Product {
 
   gender?: "Men" | "Women" | "Unisex";
   size?: string;
+
+  // 👇 हे add कर
+  topNotes?: string[];
+  middleNotes?: string[];
+  baseNotes?: string[];
+
+  longevity?: string;
+  projection?: string;
+  concentration?: string;
+
+  isActive?: boolean;
+
+  createdAt?: string;
+  updatedAt?: string;
 }

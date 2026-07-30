@@ -1,17 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Product } from "@/types/product";
 
 interface ProductTabsProps {
-  product: {
-    description: string;
-    topNotes: string[];
-    middleNotes: string[];
-    baseNotes: string[];
-  };
+  product: Product;
 }
 
-export default function ProductTabs({ product }: ProductTabsProps) {
+export default function ProductTabs({
+  product,
+}: ProductTabsProps) {
   const [activeTab, setActiveTab] = useState("description");
 
   const tabs = [
@@ -41,13 +39,13 @@ export default function ProductTabs({ product }: ProductTabsProps) {
 
       <div className="rounded-b-lg border border-t-0 border-zinc-800 bg-zinc-900 p-6 text-zinc-300">
         {activeTab === "description" && (
-          <p>{product.description || "No description available."}</p>
+          <p>{product.description ?? "No description available."}</p>
         )}
 
         {activeTab === "top" && (
           <ul className="list-disc pl-5">
-            {product.topNotes.length > 0 ? (
-              product.topNotes.map((note) => (
+            {(product.topNotes?.length ?? 0) > 0 ? (
+              product.topNotes!.map((note) => (
                 <li key={note}>{note}</li>
               ))
             ) : (
@@ -58,8 +56,8 @@ export default function ProductTabs({ product }: ProductTabsProps) {
 
         {activeTab === "middle" && (
           <ul className="list-disc pl-5">
-            {product.middleNotes.length > 0 ? (
-              product.middleNotes.map((note) => (
+            {(product.middleNotes?.length ?? 0) > 0 ? (
+              product.middleNotes!.map((note) => (
                 <li key={note}>{note}</li>
               ))
             ) : (
@@ -70,8 +68,8 @@ export default function ProductTabs({ product }: ProductTabsProps) {
 
         {activeTab === "base" && (
           <ul className="list-disc pl-5">
-            {product.baseNotes.length > 0 ? (
-              product.baseNotes.map((note) => (
+            {(product.baseNotes?.length ?? 0) > 0 ? (
+              product.baseNotes!.map((note) => (
                 <li key={note}>{note}</li>
               ))
             ) : (
