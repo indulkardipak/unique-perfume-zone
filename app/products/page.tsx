@@ -1,7 +1,9 @@
 export default function ProductsPage() {
   return (
-    <div>
-      Products Page
+    <div className="container mx-auto py-10">
+      <h1 className="text-3xl font-bold">
+        All Products
+      </h1>
     </div>
   );
 }
